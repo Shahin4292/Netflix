@@ -19,4 +19,16 @@ class HomeController {
     }
     throw Exception("Failed to load upcoming movie");
   }
+
+  Future<UpcomingMovieModel> nowPlayingMovie() async {
+    endPoint = "movie/now_playing";
+    final url = "$baseUrl$endPoint$key";
+    final response = await http.get(Uri.parse(url));
+    final data = jsonDecode(response.body);
+    print(data);
+    if (response.statusCode == 200) {
+      return UpcomingMovieModel.fromJson(data);
+    }
+    throw Exception("Failed to load now playing movie");
+  }
 }
