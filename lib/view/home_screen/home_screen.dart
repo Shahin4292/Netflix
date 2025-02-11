@@ -15,10 +15,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = HomeController();
   late Future<UpcomingMovieModel> upcomingFuture;
+  late Future<UpcomingMovieModel> nowPlayingFuture;
 
   @override
   void initState() {
     upcomingFuture = homeController.getUpcomingMovie();
+    nowPlayingFuture = homeController.nowPlayingMovie();
     super.initState();
   }
 
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          centerTitle: true,
           backgroundColor: kBackgroundColor,
           title: Image.asset(
             ImagePath.logo,
@@ -52,13 +55,22 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        body: Column(
-          children: [
-            SizedBox(
-                height: 230,
-                child:
-                    MovieCard(future: upcomingFuture, text: "Upcoming Movie"))
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 30,
+            children: [
+              SizedBox(
+                  height: 230,
+                  child: MovieCard(
+                      future: nowPlayingFuture, text: "Now Playing Movie")),
+              SizedBox(
+                  height: 230,
+                  child: MovieCard(
+                      future: upcomingFuture, text: "Upcoming Movie")),
+            ],
+          ),
         ));
   }
 }
