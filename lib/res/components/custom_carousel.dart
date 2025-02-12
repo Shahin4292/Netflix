@@ -11,6 +11,7 @@ class CustomCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return FutureBuilder<List<dynamic>>(
       future: _movies,
       builder: (context, snapshot) {
@@ -32,19 +33,22 @@ class CustomCarousel extends StatelessWidget {
           children: [
             CarouselSlider(
               options: CarouselOptions(
-                height: 400.0,
-                enlargeCenterPage: true,
+                height: 230,
                 autoPlay: true,
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayInterval: Duration(seconds: 3),
+                enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
+                initialPage: 0,
               ),
               items: movies.map((movie) {
                 final imageUrl = 'https://image.tmdb.org/t/p/w500${movie['poster_path']}';
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.network(imageUrl, fit: BoxFit.cover),
+                  margin: EdgeInsets.only(right: 15),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(image: NetworkImage(imageUrl),fit: BoxFit.cover,)
                   ),
                 );
               }).toList(),

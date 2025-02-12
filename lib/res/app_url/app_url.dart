@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-const apiKey =
-    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MDhkMTgxZjRlYTk2OTAyYmZiMjE2OGZhMTRhNjMzNSIsIm5iZiI6MTczMjQxNDczMy44MzksInN1YiI6IjY3NDI4ZDBkYWFiNzIyYmZhN2M5MDI5MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M4cyspnxqkIsxMMQAj2SpRYMTuftpFgDu4VxeYMO-iQ";
 const kBackgroundColor = Colors.black;
+Color backgroundPrimary = const Color(0xFF111015);
+const apiKey = "8f70539a3d9d0d870609558f7a991e62";
+const baseUrl = 'https://api.themoviedb.org/3/';
 const imageUrl = "https://image.tmdb.org/t/p/w500";
+
+// https://api.themoviedb.org/3/tv/popular?api_key=8f70539a3d9d0d870609558f7a991e62

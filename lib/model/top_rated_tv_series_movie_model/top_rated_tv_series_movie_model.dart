@@ -1,4 +1,12 @@
+// To parse this JSON data, do
+//
+//     final topRatedTvSeriesModel = topRatedTvSeriesModelFromJson(jsonString);
+
 import 'dart:convert';
+
+TopRatedTvSeriesModel topRatedTvSeriesModelFromJson(String str) => TopRatedTvSeriesModel.fromJson(json.decode(str));
+
+String topRatedTvSeriesModelToJson(TopRatedTvSeriesModel data) => json.encode(data.toJson());
 
 class TopRatedTvSeriesModel {
   int page;
@@ -12,10 +20,6 @@ class TopRatedTvSeriesModel {
     required this.totalPages,
     required this.totalResults,
   });
-
-  factory TopRatedTvSeriesModel.fromRawJson(String str) => TopRatedTvSeriesModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory TopRatedTvSeriesModel.fromJson(Map<String, dynamic> json) => TopRatedTvSeriesModel(
     page: json["page"],
@@ -64,10 +68,6 @@ class Result {
     required this.voteAverage,
     required this.voteCount,
   });
-
-  factory Result.fromRawJson(String str) => Result.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
     adult: json["adult"],
