@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:netflix/res/app_url/app_url.dart';
 import 'package:netflix/viewModel/home_controller/home_controller.dart';
 
 import '../../model/search_model/search_model.dart';
@@ -15,6 +17,14 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchController = TextEditingController();
   HomeController homeController = HomeController();
   SearchModel? searchModel;
+
+  void search(String query) {
+    homeController.getSearchMovie(query).then((results) {
+      setState(() {
+        searchModel = results;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -33,23 +43,15 @@ class _SearchScreenState extends State<SearchScreen> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                Container(
-                  height: size.width * 0.1,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          offset: Offset(0, 1),
-                          blurRadius: 2,
-                        ),
-                      ]),
-                  child: TextField(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextField(
                     onChanged: (value) {
                       if (value.isEmpty) {
-                      } else {}
+                      } else {
+                        search(searchController.text);
+                      }
                     },
                     controller: searchController,
                     style: TextStyle(
@@ -81,8 +83,31 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         hintText: "Search"),
                   ),
-                )
-              ],
+                  searchModel == null
+                      ? SizedBox.shrink()
+                      : GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: searchModel!.results.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 15,
+                                  crossAxisSpacing: 5,
+                                  childAspectRatio: 1.2 / 2),
+                          itemBuilder: (context, index) {
+                            return Container(
+                                margin: EdgeInsets.only(right: 15),
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                    "$imageUrl${searchModel?.results[index].posterPath}",
+                                  )),
+                                ));
+                          })
+                ],
+              ),
             ),
           ),
         ));

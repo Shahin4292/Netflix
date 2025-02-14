@@ -11,7 +11,6 @@ class CustomCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return FutureBuilder<List<dynamic>>(
       future: _movies,
       builder: (context, snapshot) {
