@@ -124,7 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             Container(
                                               height: 150,
                                               width: 120,
-                                              padding: EdgeInsets.all(15),
+                                              padding: EdgeInsets.all(8),
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -165,23 +165,19 @@ class _SearchScreenState extends State<SearchScreen> {
                               itemBuilder: (context, index) {
                                 return Column(
                                   children: [
-                                    searchModel!.results[index].posterPath ==
-                                            null
-                                        ? Image.asset(ImagePath.netflix,
-                                            height: 170)
-                                        : Container(
-                                            margin: EdgeInsets.only(right: 15),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                "$imageUrl${searchModel?.results[index].posterPath}",
-                                              )),
-                                            )),
+                                    Container(
+                                        height: 130,
+                                        width: 120,
+                                        margin: EdgeInsets.only(right: 10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                            "$imageUrl${searchModel?.results[index].backdropPath}",
+                                          )),
+                                        )),
+                                    Text(searchModel!.results[index].title,overflow: TextOverflow.ellipsis,)
                                   ],
                                 );
                               })
