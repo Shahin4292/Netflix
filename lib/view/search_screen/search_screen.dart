@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix/res/app_url/app_url.dart';
+import 'package:netflix/res/assets/image_path.dart';
 import 'package:netflix/viewModel/home_controller/home_controller.dart';
 
 import '../../model/search_model/search_model.dart';
@@ -95,16 +96,24 @@ class _SearchScreenState extends State<SearchScreen> {
                                   crossAxisSpacing: 5,
                                   childAspectRatio: 1.2 / 2),
                           itemBuilder: (context, index) {
-                            return Container(
-                                margin: EdgeInsets.only(right: 15),
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                    "$imageUrl${searchModel?.results[index].posterPath}",
-                                  )),
-                                ));
+                            return Column(
+                              children: [
+                                searchController.text.isEmpty
+                                searchModel!.results[index].posterPath ==
+                                        null
+                                    ? Image.asset(ImagePath.netflix,height: 170)
+                                    : Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        width: MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                            "$imageUrl${searchModel?.results[index].posterPath}",
+                                          )),
+                                        )),
+                              ],
+                            );
                           })
                 ],
               ),
