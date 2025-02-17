@@ -118,15 +118,31 @@ class _SearchScreenState extends State<SearchScreen> {
                                       scrollDirection: Axis.vertical,
                                       itemCount: data!.length,
                                       itemBuilder: (context, index) {
-                                        return Container(
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Image.network(
-                                            '$imageUrl${data[index].posterPath}',
-                                            fit: BoxFit.fitHeight,
-                                          ),
+                                        return Row(
+                                          spacing: 15,
+                                          children: [
+                                            Container(
+                                              height: 150,
+                                              width: 120,
+                                              padding: EdgeInsets.all(15),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Image.network(
+                                                '$imageUrl${data[index].backdropPath}',
+                                                fit: BoxFit.fitHeight,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 150,
+                                              child: Text(
+                                                data[index].title,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
                                         );
                                       },
                                     )
