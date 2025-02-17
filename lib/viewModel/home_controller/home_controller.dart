@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:netflix/model/movie_details_model/movie_details_movie.dart';
+import 'package:netflix/model/movie_recommendation/movie_recommendation.dart';
 import 'package:netflix/model/search_model/search_model.dart';
 import 'package:netflix/model/upcoming_movie_model/upcoming_movie_model.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +51,8 @@ class HomeController {
   }
 
   Future<SearchModel> getSearchMovie(String searchText) async {
-    String bab = "https://api.themoviedb.org/3/search/movie?api_key=8f70539a3d9d0d870609558f7a991e62&query=harry";
+    String bab =
+        "https://api.themoviedb.org/3/search/movie?api_key=8f70539a3d9d0d870609558f7a991e62&query=harry";
     // String keys =
     //     "https://api.themoviedb.org/3/search/movie?query=harry&api_key=8f70539a3d9d0d870609558f7a991e62";
     endPoint = "search/movie?query=$searchText";
@@ -66,5 +69,31 @@ class HomeController {
       return SearchModel.fromJson(data);
     }
     throw Exception("Failed to search movies");
+  }
+
+  Future<MovieRecommendationModel> getPopularMovie() async {
+    endPoint = "movie/popular";
+    final url = "$baseUrl$endPoint$key";
+    final response = await http.get(Uri.parse(url));
+    final data = jsonDecode(response.body);
+    print(data);
+    if (response.statusCode == 200) {
+      return MovieRecommendationModel.fromJson(data);
+    }
+    throw Exception("Failed to load the movie");
+  }
+
+  Future<MovieDetailsModel> getMovieDetails(int movieId) async {
+    endPoint = "movie/$movieId";
+    final url = "$baseUrl$endPoint$key";
+    print("search url : $url");
+    final response = await http.get(Uri.parse(url));
+    final data = jsonDecode(response.body);
+    print(data);
+    if (response.statusCode == 200) {
+      print("success");
+      return MovieDetailsModel.fromJson(data);
+    }
+    throw Exception("Failed to load movies Id");
   }
 }
