@@ -37,13 +37,28 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final movie = snapshot.data;
-                return Container(
-                  height: 250,
-                  width: MediaQuery.sizeOf(context).width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image:
-                              NetworkImage("$imageUrl${movie!.posterPath}"),fit: BoxFit.cover)),
+                return Stack(
+                  children: [
+                    Container(
+                      height: 350,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image:
+                                  NetworkImage("$imageUrl${movie!.posterPath}"),
+                              fit: BoxFit.cover)),
+                    ),
+                    Positioned(
+                        top: 20,
+                        left: 15,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Center(
+                            child: Icon(Icons.arrow_back_ios_new),
+                          ),
+                        ))
+                  ],
                 );
               } else {
                 return SizedBox.shrink();
