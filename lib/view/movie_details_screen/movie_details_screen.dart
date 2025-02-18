@@ -119,8 +119,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               if (snapshot.hasData) {
                                 final movie = snapshot.data;
                                 return movie!.results.isEmpty
-                                    ? Text("Something went wrong")
+                                    ? Text(
+                                        "Something went wrong",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         spacing: 20,
                                         children: [
                                           Text("More Like This"),
