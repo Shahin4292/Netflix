@@ -19,7 +19,17 @@ class NewAndHot extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
-            actions: [Icon(Icons.cast,color: Colors.white,)],
+            actions: [
+              Icon(
+                Icons.cast,
+                color: Colors.white,
+              ),
+              SizedBox(width: 10),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: Container(height: 27, width: 27, color: Colors.blue)),
+              SizedBox(width: 10),
+            ],
           ),
         )));
   }
